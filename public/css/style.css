@@ -1,0 +1,38 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.footer-site {
+  background-color: #0dcaf0;
+  color: black;
+  padding: 1rem 0; 
+  text-align: center;
+  width: 100%;
+}
+
+.login-site {
+  background-color: #f8f9fa; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagem-dashboard {
+  display: flex;
+  justify-content: center; 
+  width: 100%; 
+}
+
+.imagem-dashboard-fluid {
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%; 
+  max-width: 1140px; 
+}
