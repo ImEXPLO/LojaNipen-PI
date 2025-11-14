@@ -39,22 +39,22 @@
               </div>
 
               <div class="mb-3">
-                <label for="celular" class="form-label">Celular:</label>
+                <label for="numero" class="form-label">Número Celular:</label>
                 <input
                   type="tel"
                   class="form-control"
-                  id="celular"
-                  name="tel"
+                  id="numero"
+                  name="numero"
                   required />
               </div>
 
               <div class="mb-3">
-                <label for="nascimento" class="form-label">Data de Nascimento:</label>
+                <label for="data_nascimento" class="form-label">Data de Nascimento:</label>
                 <input
                   type="date"
                   class="form-control"
-                  id="nascimento"
-                  name="nascimento"
+                  id="data_nascimento"
+                  name="data_nascimento"
                   required />
               </div>
 
@@ -65,17 +65,16 @@
                   <option value="masculino">Masculino</option>
                   <option value="feminino">Feminino</option>
                   <option value="outro">Outro</option>
-                  <option value="nao-informar">Prefiro não informar</option>
-                </select>
+                 </select>
               </div>
 
               <div class="mb-3">
-                <label for="endereco" class="form-label">Endereço:</label>
+                <label for="rua" class="form-label">Rua:</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="endereco"
-                  name="endereco"
+                  id="rua"
+                  name="rua"
                   required />
               </div>
 
@@ -144,14 +143,16 @@
               </div>
 
               <div class="mb-3">
-                <label for="tipoUsuario" class="form-label">Tipo de Usuário:</label>
-                <select class="form-select" id="tipoUsuario" required>
+                <label for="nivel_acesso" class="form-label">Tipo de Usuário:</label>
+                <select class="form-select" id="nivel_acesso" required>
                   <option value="">Selecione</option>
                   <option value="admin">Administrador</option>
                   <option value="funcionario">Funcionário</option>
                   <option value="cliente">Cliente</option>
                 </select>
               </div>
+
+
 
               <button type="submit" class="btn btn-success">Cadastrar</button>
               <button type="button" class="btn btn-warning">Voltar</button>
