@@ -31,14 +31,18 @@ class Produto {
 
         $senha_criptografada = password_hash($dados['senha'], PASSWORD_BCRYPT);
 
-        $sql = "INSERT INTO produtos (nome, cpf, data_nascimento, celular, rua, numero, complemento, bairro, cidade, cep, estado, email, nivel_acesso, genero, senha)";
-        $sql .= " VALUES (:nome, :cpf, :data_nascimento, :celular, :rua, :numero, :complemento, :bairro, :cidade, :cep, :estado, :email, :nivel_acesso, :genero, :senha)";
+        $sql = "INSERT INTO produtos (nome, descricao, quantidade, valor_un, categoria)";
+        $sql .= " VALUES (:nome, :descricao, :quantidade, :valor_un, :categoria)";
 
         // Prepara o SQL para ser inserido no BD e limpa códigos maliciosos
         $stmt = $pdo->prepare($sql);
 
         // Passa as variaveis para o SQL
         $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(':descricao', $dados['descricao'], PDO::PARAM_STR);
+        $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_STR);
+        $stmt->bindParam(':valor_un', $dados['valor_un'], PDO::PARAM_STR);
+        $stmt->bindParam(':categoria', $dados['categoria'], PDO::PARAM_STR);
        
     }catch (PDOException $e){
         echo "Erro ao inserir: " . $e->getMessage();
@@ -47,3 +51,5 @@ class Produto {
         
     }
 }
+
+// Nota: Estou com um problema em conectar/entrar na lista de usuarios - os outros links estão OK - V.

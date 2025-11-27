@@ -39,6 +39,20 @@ class Usuario {
 
         // Passa as variaveis para o SQL
         $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(':cpf', $dados['cpf'], PDO::PARAM_STR);
+        $stmt->bindParam(':data_nascimento', $dados['data_nascimento'], PDO::PARAM_STR);
+        $stmt->bindParam(':celular', $dados['celular'], PDO::PARAM_STR);
+        $stmt->bindParam(':rua', $dados['rua'], PDO::PARAM_STR);
+        $stmt->bindParam(':numero', $dados['numero'], PDO::PARAM_STR);
+        $stmt->bindParam(':complemento', $dados['complemento'], PDO::PARAM_STR);
+        $stmt->bindParam(':bairro', $dados['bairro'], PDO::PARAM_STR);
+        $stmt->bindParam(':cidade', $dados['cidade'], PDO::PARAM_STR);
+        $stmt->bindParam(':cep', $dados['cep'], PDO::PARAM_STR);
+        $stmt->bindParam(':estado', $dados['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':nivel_acesso', $dados['nivel_acesso'], PDO::PARAM_STR);
+        $stmt->bindParam(':genero', $dados['genero'], PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $dados['senha'], PDO::PARAM_STR);
        
     }catch (PDOException $e){
         echo "Erro ao inserir: " . $e->getMessage();

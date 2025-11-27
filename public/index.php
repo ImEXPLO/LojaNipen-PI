@@ -3,7 +3,9 @@
 require __DIR__ . '/../vendor/autoload.php'; // Obrigatório pro projeto.
 
 use App\Controllers\UsuarioController;
+use App\Controllers\ProdutoController;
 use App\Models\Usuario;
+use App\Models\Produto;
 
 // Função para renderizar as telas com layout
 function render($view, $data = [])
@@ -49,6 +51,7 @@ else if ($url == "/usuarios") {
     // Cria uma instancia do Controller e chama a função de listar
     $controller = new UsuarioController();
     $controller-> listar();
+    render('usuarios/lista_usuarios.php', ['title' => 'Lista de Usuários!']);
 
 
 } else if ($url == "/usuarios/inserir") {
