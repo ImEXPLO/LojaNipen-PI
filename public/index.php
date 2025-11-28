@@ -1,4 +1,6 @@
 <?php
+session_start(); // Inicia a sessão
+
 // Importa o autoload do Composer para carregar as rotas
 require __DIR__ . '/../vendor/autoload.php'; // Obrigatório pro projeto.
 
@@ -50,12 +52,13 @@ if ($url == "/" || $url == "/index.php") {
 else if ($url == "/usuarios") {
     // Cria uma instancia do Controller e chama a função de listar
     $controller = new UsuarioController();
-    $controller-> listar();
-    render('usuarios/lista_usuarios.php', ['title' => 'Lista de Usuários!']);
-
+    $controller->listar();
 
 } else if ($url == "/usuarios/inserir") {
     render('usuarios/form_usuarios.php', ['title' => 'Cadastrar Usuário!']);
+} else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $controller = new UsuarioController();
+    $controller->salvar();
 }
 
 // PRODUTOS

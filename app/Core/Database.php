@@ -9,9 +9,9 @@ class Database {
     public static function conectar() {
         $host = '127.0.0.1';
         $porta = '3306';
-        $banco = 'loja_nipen';
+        $banco = 'lojanipen';
         $usuario = 'root';
-        $senha = 'root';
+        $senha = '';
         
         $dsn = "mysql:host=$host;port=$porta;dbname=$banco;charset=utf8";
         

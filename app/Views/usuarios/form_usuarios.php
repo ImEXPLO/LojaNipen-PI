@@ -3,7 +3,7 @@
         <div class="card shadow-sm">
           <div class="card-body p-4 p-md-5">
             <h2 class="mb-4">Cadastro de Usuários</h2>
-            <form action="index.html" method="POST">
+            <form action="/usuarios/salvar" method="POST">
               <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
                 <input
@@ -39,12 +39,12 @@
               </div>
 
               <div class="mb-3">
-                <label for="numero" class="form-label">Número Celular:</label>
+                <label for="celular" class="form-label">Número Celular:</label>
                 <input
                   type="tel"
                   class="form-control"
-                  id="numero"
-                  name="numero"
+                  id="celular"
+                  name="celular"
                   required />
               </div>
 
@@ -60,12 +60,12 @@
 
               <div class="mb-3">
                 <label for="genero" class="form-label">Gênero:</label>
-                <select class="form-select" id="genero" required>
+                <select class="form-select" id="genero" name="genero" required>
                   <option value="">Selecione</option>
                   <option value="masculino">Masculino</option>
                   <option value="feminino">Feminino</option>
                   <option value="outro">Outro</option>
-                 </select>
+                </select>
               </div>
 
               <div class="mb-3">
@@ -144,7 +144,7 @@
 
               <div class="mb-3">
                 <label for="nivel_acesso" class="form-label">Tipo de Usuário:</label>
-                <select class="form-select" id="nivel_acesso" required>
+                <select class="form-select" id="nivel_acesso" name="nivel_acesso" required>
                   <option value="">Selecione</option>
                   <option value="admin">Administrador</option>
                   <option value="funcionario">Funcionário</option>

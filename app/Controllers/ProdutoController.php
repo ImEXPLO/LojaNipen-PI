@@ -18,6 +18,40 @@ class ProdutoController{
         ]); 
 
     }
+    public function salvar()
+    {
+        // 1. Limpa os dados, remove tudo que não for texto puro 
+    
+        $dados = [
+            'nome' => filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS),
+            'descricao' => filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_SPECIAL_CHARS),
+            'quantidade' => filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_SPECIAL_CHARS),
+            'valor_un' => filter_input(INPUT_POST, 'valor_un', FILTER_SANITIZE_SPECIAL_CHARS),
+            'categoria' => filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_SPECIAL_CHARS)
+        ];
+
+        // Cria a Lista de Erros
+        $erros = [];
+
+        // Verifica se o nome está vazio
+        if (empty($dados['nome'])) {
+            $erros[] = 'O campo NOME não pode ficar em branco!';
+        } else if (strlen($dados['nome']) < 4) {
+            $erros[] = 'O campo NOME deve ser mais que 3 caracteres!';
+        }
+
+        // Se não houver erros, salva
+        if (empty($erros)) {
+            $id = Produto::salvar($dados);
+           // header('Location: /usuarios');
+        } else {
+            // Se houve erros, volta ao formulário
+            $_SESSION['erros'] = $erros;
+            $_SESSION['dados'] = $dados;
+            // header('Location: /usuarios/inserir');
+        }
+    }
 }
+
 
 ?>

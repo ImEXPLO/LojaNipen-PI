@@ -52,7 +52,13 @@ class Usuario {
         $stmt->bindParam(':email', $dados['email'], PDO::PARAM_STR);
         $stmt->bindParam(':nivel_acesso', $dados['nivel_acesso'], PDO::PARAM_STR);
         $stmt->bindParam(':genero', $dados['genero'], PDO::PARAM_STR);
-        $stmt->bindParam(':senha', $dados['senha'], PDO::PARAM_STR);
+        $stmt->bindParam(':senha', $senha_criptografada);
+
+        // Executa o SQL
+
+        $stmt->execute();
+        // Retorna o ID de Registro no BD
+        return (int) $pdo->lastInsertId(); 
        
     }catch (PDOException $e){
         echo "Erro ao inserir: " . $e->getMessage();
