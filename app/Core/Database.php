@@ -5,11 +5,12 @@ namespace App\Core;
 use PDO;
 use PDOException;
 
+// Na Fatec usar $banco = lojanipen - Em casa (Victor), usar $banco = loja_nipen
 class Database {
     public static function conectar() {
         $host = '127.0.0.1';
         $porta = '3306';
-        $banco = 'lojanipen';
+        $banco = 'loja_nipen';
         $usuario = 'root';
         $senha = '';
         

@@ -33,6 +33,8 @@ function render_sem_template($view, $data = [])
 
 // Obtém a URL do navegador
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$usuarioCtrl = new UsuarioController(); // Trocamos a variável do UsuarioController pra compatibilizar com as outras páginas
+$produtoCtrl = new ProdutoController(); // Mesmo esquema do de cima.
 
 // NAVEGAÇÃO GERAL
 
@@ -47,24 +49,61 @@ if ($url == "/" || $url == "/index.php") {
 }
 
 
-// USUÁRIOS
-
+// USUÁRIOS - ROTAS
 else if ($url == "/usuarios") {
     // Cria uma instancia do Controller e chama a função de listar
-    $controller = new UsuarioController();
-    $controller->listar();
+    $usuarioCtrl->listar();
 
 } else if ($url == "/usuarios/inserir") {
-    render('usuarios/form_usuarios.php', ['title' => 'Cadastrar Usuário!']);
+    render('usuarios/form_usuarios.php', ['title' => 'Cadastrar Usuário!', 'dados' => []]);
+} else if ($url == "/usuarios/editar") {
+    // Essa é a rota de Edição
+    if (isset($_GET['id'])) {
+        $usuarioCtrl->editar($_GET['id']);
+    } else {
+        header('Location: /usuarios');
+    }
+} else if ($url == "/usuarios/excluir") {
+    // Essa é a rota de Exclusão Lógica
+    if (isset($_GET['id'])) {
+        $usuarioCtrl->excluir($_GET['id']);
+    } else {
+        header('Location: /usuarios');
+    }
 } else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
-    $controller = new UsuarioController();
-    $controller->salvar();
+    $usuarioCtrl->salvar();
 }
 
-// PRODUTOS
-
+// PRODUTOS - ROTAS
 else if ($url == "/produtos") {
     render('produtos/lista_produtos.php', ['title' => 'Listar Produtos!']);
-} else if ($url == "/produtos/inserir") {
-    render('produtos/form_produtos.php', ['title' => 'Cadastrar Produto!']);
+} 
+else if ($url == "/produtos/inserir") {
+    render('produtos/form_produtos.php', ['title' => 'Cadastrar Produto!', 'dados'=> []]);
+} 
+else if ($url == "/produtos/editar") {
+    // Essa é a rota de Edição
+    if (isset($_GET['id'])) {
+        $produtoCtrl->editar($_GET['id']);
+    } else {
+        header('Location: /produtos');
+    }
+}
+
+else if ($url == "/produtos/excluir") {
+    // Essa é rota de Exclusão Lógica
+    if (isset($_GET['id'])) {
+        $produtoCtrl->excluir($_GET['id']);
+    } else {
+        header('Location: /produtos');
+    }
+}
+else if ($url == "/produtos/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Rota do Salvar
+    $produtoCtrl->salvar();
+} 
+// PAGINA 404 SIMPLES
+
+else {
+    echo "<h1>Erro 404 - Page Not Found - Try De Novo Despois!</h1>";
 }

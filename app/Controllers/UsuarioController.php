@@ -20,8 +20,40 @@ class UsuarioController
         ]);
     }
 
+    public function editar($id)
+    {
+        $usuario = Usuario::buscarPorId($id);
+
+        if (!$usuario) {
+            header('Location: /usuarios');
+            exit;
+        }
+
+        render("usuarios/form_usuarios.php", [
+            'title' => "Editar Usuário",
+            'dados' => $usuario
+        ]);
+    }
+
+    public function excluir($id)
+    {
+        Usuario::softDelete($id);
+        header('Location: /usuarios');
+        exit;
+    }
+
+    public function excluirFisico($id) {
+        Usuario::fisicalDelete($id);
+        header('Location: /usuarios');
+        exit;
+    }
+
     public function salvar()
     {
+
+        // Verifica se veio um ID (campo oculto do form)
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
         // 1. Limpa os dados, remove tudo que não for texto puro 
         $dados = [
             'nome' => filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS),
@@ -36,7 +68,7 @@ class UsuarioController
             'cep' => filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS),
             'estado' => filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS),
             'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
-            'nivel_acesso' => filter_input(INPUT_POST, 'nivel_acesso', FILTER_SANITIZE_SPECIAL_CHARS),
+            'nivel_acesso' => filter_input(INPUT_POST, 'nivel_acesso', FILTER_DEFAULT),
             'genero' => filter_input(INPUT_POST, 'genero', FILTER_SANITIZE_SPECIAL_CHARS),
             'senha' => filter_input(INPUT_POST, 'senha', FILTER_DEFAULT)
         ];
@@ -44,7 +76,8 @@ class UsuarioController
         // Cria a Lista de Erros
         $erros = [];
 
-        // Verifica se o nome está vazio
+        // Verificação do nome estar vazio e também sobre caracteres minimos.
+
         if (empty($dados['nome'])) {
             $erros[] = 'O campo NOME não pode ficar em branco!';
         } else if (strlen($dados['nome']) < 4) {
@@ -52,14 +85,34 @@ class UsuarioController
         }
 
         // Se não houver erros, salva
-        if (empty($erros)) {
-            $id = Usuario::salvar($dados);
-            header('Location: /usuarios');
-        } else {
-            // Se houve erros, volta ao formulário
+        // Se houver erros, volta para o formulário
+        if (!empty($erros)) {
             $_SESSION['erros'] = $erros;
+            
+            // Guarda os dados na sessão para não perder o que foi digitado
+            // Importante: garante que o ID volte junto
+            $dados['id_usuario'] = $id;
             $_SESSION['dados'] = $dados;
-           header('Location: /usuarios/inserir');
+
+            // Decide para onde voltar (Edição ou Cadastro Novo)
+            if ($id) {
+                header('Location: /usuarios/editar?id=' . $id);
+            } else {
+                header('Location: /usuarios/inserir');
+            }
+            exit;
         }
+
+        if ($id) {
+            // Tem ID? Então é UPDATE
+            Usuario::atualizar($id, $dados);
+        } else {
+            // Não tem ID? Então é CREATE
+            Usuario::salvar($dados);
+        }
+
+        header('Location: /usuarios');
+        exit;
     }
 }
+
