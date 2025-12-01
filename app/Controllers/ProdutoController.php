@@ -7,16 +7,15 @@ use App\Models\Produto;
 
 class ProdutoController
 {
-
     // Busca os produtos e chama a tela de listar
     public function listar()
     {
         // Chama a model e a função que busca os dados e armazena na var
         $lista_produtos = Produto::buscarTodos();
 
-        render("produtos/lista_produtos.php", [
-            'title' => "Lista de Produtos",
-            'produtos' => $lista_produtos
+       render("produtos/lista_produtos.php", [
+         'title' => "Lista de Produtos",
+        'produtos' => $lista_produtos
         ]);
 
     }
@@ -74,19 +73,18 @@ class ProdutoController
             $dados['id_produto'] = $id; // Atenção: Verifique se sua PK é id_produto
             $_SESSION['dados'] = $dados;
 
-            // Redireciona para PRODUTOS (estava usuarios antes)
+            // Redireciona para PRODUTOS (estava usuarios antes por que foi copypaste)
             if ($id) {
-                header('Location: /produtos/editar?id=' . $id);
+                header('Location: /produtos/editar?id=' . $id); // Concatenando o id pra ver o que vamos editar
             } else {
                 header('Location: /produtos/inserir');
             }
             exit;
         }
 
-        // Se não houver erros, decide se Salva ou Atualiza
+        // Se não houver erros, o PHP decide se Salva ou Atualiza
         if ($id) {
             // Tem ID? É Edição!
-            // Certifique-se que o método no Model se chama 'update' ou 'atualizar'
             Produto::update($id, $dados);
         } else {
             // Não tem ID? É Criação!

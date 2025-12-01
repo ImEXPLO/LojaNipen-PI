@@ -76,7 +76,7 @@ else if ($url == "/usuarios") {
 
 // PRODUTOS - ROTAS
 else if ($url == "/produtos") {
-    render('produtos/lista_produtos.php', ['title' => 'Listar Produtos!']);
+    $produtoCtrl->listar();
 } 
 else if ($url == "/produtos/inserir") {
     render('produtos/form_produtos.php', ['title' => 'Cadastrar Produto!', 'dados'=> []]);

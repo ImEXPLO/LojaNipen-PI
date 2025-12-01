@@ -11,32 +11,41 @@ class Produto
 {
 
     // Aqui declaramos uma função para cada operação do CRUD
-
     // Buscar todos os usuários no BD
     public static function buscarTodos()
     {
-        // Primeiro vamos conectar no Banco de Dados
-        // Precisamos importar o PDO antes de a classe
-        // Como vamos utilizar arquivo DATABASE, importamos ele também
-        $pdo = Database::conectar();
+        try {
+            $pdo = Database::conectar();
+            $sql = "SELECT * FROM produtos WHERE deleted_at IS NULL";
+            // Retornamos o resultado da consulta
+            return $pdo->query($sql)->fetchAll();
+        } catch (PDOException $e) {
+            echo "<h2>Erro ao Listar Produtos</h2>";
+            echo "<p>" . $e->getMessage() . "</p>";
+            exit;
+        }
 
-        // Geramos o Script SQL de consulta
-        $sql = "SELECT * FROM produtos";
+        // Colocamos Try/Catch pra log para erros - coisa que aqui no Dev em casa apareceu
+        // Diversos :) (Alegria)
 
-        // Retornamos o resultado da consulta
-        return $pdo->query($sql)->fetchAll();
     }
 
     // Buscar por ID (filtra os deletados)
 
     public static function buscarPorId($id)
     {
-        $pdo = Database::conectar();
-        $sql = "SELECT * FROM produtos WHERE id_produto = :id AND deleted_at IS NULL";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetch();
+        try {
+            $pdo = Database::conectar();
+            $sql = "SELECT * FROM produtos WHERE id_produto = :id AND deleted_at IS NULL";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            echo "<h2>Erro ao Buscar Produto</h2>";
+            echo "<p>" . $e->getMessage() . "</p>";
+            exit;
+        }
     }
 
     // Função de Salvar
@@ -115,7 +124,8 @@ class Produto
         }
     }
 
-    public static function fisicalDelete($id) { //copypaste do usuario.php
+    public static function fisicalDelete($id)
+    { //copypaste do usuario.php
         try {
             $pdo = Database::conectar();
             $sql = "DELETE FROM produtos WHERE id_produto = :id";

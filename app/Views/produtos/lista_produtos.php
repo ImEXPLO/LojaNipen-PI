@@ -5,8 +5,9 @@
     <a href="/produtos/inserir" class="btn btn-success">Criar Novo</a>
   </div>
 
-  <!-- Verifica se a lista de produtos está vazia -->
-  <!-- Outra função pra estilização do site. -->
+  <!-- A função/extra abaixo verifica se a lista de produtos está vazia -->
+  <!-- Outra função pra estilização do site e também para debug pra ver se não tem nada -->
+  <!-- de errado no BD ou em outro arquivo raiz do projeto. -->
 
   <?php if(empty($produtos)): ?>
       <div class="alert alert-warning text-center">
