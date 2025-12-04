@@ -1,5 +1,5 @@
 <?php
-
+// O "namespace" cria "containers" que ajudam a organizar elementos de códigos relacionados, como classes, interfaces e funções com o objetivo de evitar conflitos de nomes caso tenha-se várias bibliotecas ou frameworks.
 namespace App\Controllers;
 
 // Importa o Model de Usuario
@@ -14,6 +14,8 @@ class UsuarioController
         // Chama a model e a função que busca os dados e armazena na var
         $lista_usuarios = Usuario::buscarTodos();
 
+
+        // O "render" de modo geral é uma função de renderização ou até mesmo um método que é responsavel por gerar e retornar uma saída de uma visualização ou modelo.
         render("usuarios/lista_usuarios.php", [
             'title' => "Lista de Usuários",
             'usuarios' => $lista_usuarios

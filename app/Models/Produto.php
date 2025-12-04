@@ -1,10 +1,16 @@
 <?php
 // Em qual pasta ele está
+
+// O "namespace" cria "containers" que ajudam a organizar elementos de códigos relacionados, como classes, interfaces e funções com o objetivo de evitar conflitos de nomes caso tenha-se várias bibliotecas ou frameworks.
 namespace App\Models;
 
 use PDO;
 use App\Core\Database;
 use PDOException;
+
+// PDO é uma extensão do PHP orientada a objetos que fornece uma camada de abstração padronizada para acessar banco de dados, no nosso caso, o SQL/Workbench.
+
+// o PDOExcepction fornece informações detalhadas sobre erros na operação da database, incluindo erros de drivers, erros de banco de dados e mensagens.
 
 // Mesmo nome do Arquivo
 class Produto
@@ -60,6 +66,10 @@ class Produto
 
             $stmt = $pdo->prepare($sql);
 
+
+            //"stmt" significa "statement", ou "declaração". a "bindParam" serve para conectar um parametro para uma variavel em específica, nesse caso, a stmt, que está declarando as variáveis de dados para nome, descrição, quantidade...
+
+            // PARAM_STR é uma constante predefinida usada para especificar o tipo de dados de um parametro ao associar valores a uma instrução preparada. Nesse casoa, representa tipos de dados do SQL, como CHAR, VARCHAR, etc.
             $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
             $stmt->bindParam(':descricao', $dados['descricao'], PDO::PARAM_STR);
             $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_STR);
@@ -69,6 +79,10 @@ class Produto
             $stmt->execute();
             return $pdo->lastInsertId();
 
+            //O "lasInsertId" resgata a última informação fornecida ao banco de dados.
+
+
+            // O "getMessage" recupera a mensagem descritiva associada a uma exceção que foi lançada. Esse método permite acessar essa mensagem para depuração, registro em log ou exibição ao usuário, e é principalmente usado com objetos de excessão (PDOExpection se transformando em uma variável como $e).
         } catch (PDOException $e) {
             echo "<h2>Erro ao Salvar no BD</h2>";
             echo "<p>" . $e->getMessage() . "</p>";

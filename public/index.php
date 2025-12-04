@@ -73,6 +73,7 @@ else if ($url == "/usuarios") {
 } else if ($url == "/usuarios/salvar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuarioCtrl->salvar();
 }
+          // "&&" é um operador lógico, podendo ser entendido como "e", ou "and". É avaliado como verdadeiro somente se ambos os seus operandos forem verdadeiros. Ele é avaliado como falso se algum dos operandos for falso, resultando em um resultado falso
 
 // PRODUTOS - ROTAS
 else if ($url == "/produtos") {

@@ -1,10 +1,15 @@
 <?php
 // Em qual pasta ele está
+// O "namespace" cria "containers" que ajudam a organizar elementos de códigos relacionados, como classes, interfaces e funções com o objetivo de evitar conflitos de nomes caso tenha-se várias bibliotecas ou frameworks.
 namespace App\Models;
 
 use PDO;
 use App\Core\Database;
 use PDOException;
+
+// PDO é uma extensão do PHP orientada a objetos que fornece uma camada de abstração padronizada para acessar banco de dados, no nosso caso, o SQL/Workbench.
+
+// o PDOExcepction fornece informações detalhadas sobre erros na operação da database, incluindo erros de drivers, erros de banco de dados e mensagens.
 
 // Mesmo nome do Arquivo
 class Usuario
@@ -45,6 +50,8 @@ class Usuario
         $stmt->execute();
 
         return $stmt->fetch();
+
+        //O Fetch utlizamos para recuperar linhas de um conjunto de resultados após a execução de uma consulta.
     }
 
     // Função buscarPorEmail = Como o próprio nome já diz, serve para
@@ -121,7 +128,8 @@ class Usuario
                 WHERE id_usuario = :id";
 
             $senha_hash = password_hash($dados['senha'], PASSWORD_BCRYPT);
-
+             // A linha acima é sobre a segurança de uma senha. o "hash" é usado para fins de verificação de integridade de dados, nesse caso da senha. o PASSWORD_BCRYPT serve para criptografar a senha. 
+             
         } else {
             $sql = "UPDATE usuarios SET
                 nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento,
